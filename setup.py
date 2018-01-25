@@ -100,7 +100,6 @@ setup(name = "nmosreverseproxy",
       package_dir = packages,
       package_data={'': ['templates/*']},
       scripts = [
-                  'bin/proxylisting'
                 ],
       data_files=[
       ],

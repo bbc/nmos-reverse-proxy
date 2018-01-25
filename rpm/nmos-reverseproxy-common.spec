@@ -8,6 +8,7 @@ Source0: nmosreverseproxy-%{version}.tar.gz
 Source1: nmos-reverseproxy-common.conf
 Source2: nmos-reverse-proxy.service
 Source3: nmos-reverse-proxy.conf
+Source4: ../bin/proxylisting.conf
 
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
@@ -48,6 +49,8 @@ cp %{SOURCE2} %{buildroot}/%{_unitdir}/nmos-reverse-proxy.service
 
 mkdir -p %{buildroot}/%{_sysconfdir}/init
 cp %{SOURCE3} %{buildroot}/%{_sysconfdir}/init/nmos-reverse-proxy.conf
+
+cp %{SOURCE4} %{_bindir}/proxylisting
 
 %post
 systemctl daemon-reload
