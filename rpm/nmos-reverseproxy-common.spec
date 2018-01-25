@@ -1,14 +1,14 @@
-Name: nmosreverseproxy
+Name: ips-reverseproxy-common
 Version: 0.1.0
 Release: 2%{?dist}
 License: Apache 2
 Summary: Common reverse proxy config for IP Studio web services
 
-Source0: nmosreverseproxy-%{version}.tar.gz
+Source0: ips-reverseproxy-common-%{version}.tar.gz
 Source1: nmos-reverseproxy-common.conf
 Source2: nmos-reverse-proxy.service
 Source3: nmos-reverse-proxy.conf
-Source4: ../bin/proxylisting.conf
+Source4: proxylisting
 
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
@@ -41,7 +41,9 @@ Requires:       nmoscommon
 %{py2_install}
 
 mkdir -p %{buildroot}/%{_sysconfdir}/httpd/conf.d
-mkdir -p %{buildroot}/%{_sysconfdir}/httpd/conf.d/nmos-apis
+mkdir -p %{buildroot}/%{_sysconfdir}/httpd/conf.d/ips-apis
+mkdir -p %{buildroot}%{_bindir}
+
 cp %{SOURCE1} %{buildroot}/%{_sysconfdir}/httpd/conf.d/nmos-reverseproxy-common.conf
 
 mkdir -p %{buildroot}/%{_unitdir}
@@ -50,7 +52,7 @@ cp %{SOURCE2} %{buildroot}/%{_unitdir}/nmos-reverse-proxy.service
 mkdir -p %{buildroot}/%{_sysconfdir}/init
 cp %{SOURCE3} %{buildroot}/%{_sysconfdir}/init/nmos-reverse-proxy.conf
 
-cp %{SOURCE4} %{_bindir}/proxylisting
+cp %{SOURCE4} %{buildroot}%{_bindir}/proxylisting
 
 %post
 systemctl daemon-reload
@@ -64,13 +66,13 @@ systemctl stop nmos-reverse-proxy || true
 rm -rf %{buildroot}
 
 %files
-%{_bindir}/
+%{_bindir}/proxylisting
 
 %{python2_sitelib}/nmosreverseproxy
-%{python2_sitelib}/nmosreverseproxy-%{version}*.egg-info
+%{python2_sitelib}/ips_reverseproxy_common-%{version}*.egg-info
 
 %config %{_sysconfdir}/httpd/conf.d/nmos-reverseproxy-common.conf
-%config %{_sysconfdir}/httpd/conf.d/nmos-apis
+%config %{_sysconfdir}/httpd/conf.d/ips-apis
 %config %{_sysconfdir}/init/nmos-reverse-proxy.conf
 
 %{_unitdir}/nmos-reverse-proxy.service

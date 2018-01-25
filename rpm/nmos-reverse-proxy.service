@@ -1,1 +1,15 @@
-../debian/ips-reverseproxy-common.service
+[Unit]
+Description=ips-reverseproxy-common
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+ExecStart=/usr/bin/proxylisting
+User=ipstudio
+
+Environment=PROXYLISTING_ALIAS_SITES=/etc/httpd/conf.d/ips-apis/
+Environment=PROXYLISTING_PROXY_SITES=/etc/httpd/conf.d/ips-apis/
+
+[Install]
+WantedBy=multi-user.target
+Alias=ips-proxylisting.service
