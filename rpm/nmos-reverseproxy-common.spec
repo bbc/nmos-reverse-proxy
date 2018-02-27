@@ -42,6 +42,7 @@ Requires:       nmoscommon
 
 mkdir -p %{buildroot}/%{_sysconfdir}/httpd/conf.d
 mkdir -p %{buildroot}/%{_sysconfdir}/httpd/conf.d/ips-apis
+mkdir -p %{buildroot}/%{_sysconfdir}/httpd/conf.d/nmos-apis
 mkdir -p %{buildroot}%{_bindir}
 
 cp %{SOURCE1} %{buildroot}/%{_sysconfdir}/httpd/conf.d/nmos-reverseproxy-common.conf
@@ -73,6 +74,7 @@ rm -rf %{buildroot}
 
 %config %{_sysconfdir}/httpd/conf.d/nmos-reverseproxy-common.conf
 %config %{_sysconfdir}/httpd/conf.d/ips-apis
+%config %{_sysconfdir}/httpd/conf.d/nmos-apis
 %config %{_sysconfdir}/init/nmos-reverse-proxy.conf
 
 %{_unitdir}/nmos-reverse-proxy.service
