@@ -15,41 +15,15 @@
 # See the License for the specific language governing permissions and
 
 from distutils.core import setup
-from distutils.version import LooseVersion
 import os
-import sys
 
-def check_packages(packages):
-    failure = False
-    for python_package, debian_package in packages:
-        try:
-            __import__(python_package)
-        except ImportError as err:
-            failure = True
-            print "Cannot find", python_package,
-            print "you need to install :", debian_package
-
-    return not failure
-
-def check_dependencies(packages):
-    failure = False
-    for python_package, dependency_filename, dependency_url in packages:
-        try:
-            __import__(python_package)
-        except ImportError as err:
-            failure = True
-            print
-            print "Cannot find", python_package,
-            print "you need to install :", dependency_filename
-            print "... originally retrieved from", dependency_url
-
-    return not failure
 
 def is_package(path):
     return (
         os.path.isdir(path) and
         os.path.isfile(os.path.join(path, '__init__.py'))
         )
+
 
 def find_packages(path, base="" ):
     """ Find all packages in path """
@@ -65,43 +39,26 @@ def find_packages(path, base="" ):
             packages.update(find_packages(dir, module_name))
     return packages
 
+
 packages = find_packages(".")
 package_names = packages.keys()
 
-packages_required = [
-                    ]
-
-deps_required = [
-                ]
-
-if sys.argv[1] != "sdist" and sys.argv[1] != "clean":
-    # print sys.argv
-    # import os
-    # print os.environ
-    have_packages = check_packages(packages_required)
-    have_dependencies = check_dependencies(deps_required)
-
-    if not(have_packages and have_dependencies):
-        print
-        print "Cannot proceed without the packages listed installed"
-        print "The debian packages can be installed together"
-        print "The dependencies must be installed in that order"
-        sys.exit(1)
+packages_required = []
 
 setup(name = "ips-reverseproxy-common",
       version = "0.1.0",
       description = "Reverse Proxy Directory listing service and Apache 2 configuration for NMOS services",
-     url='www.nmos.tv',
+      url='https://github.com/bbc/nmos-reverse-proxy',
       author='Peter Brightwell',
       author_email='peter.brightwell"bbc.co.uk',
       license='Apache 2',
-
       packages = package_names,
       package_dir = packages,
+      install_requires = packages_required,
       package_data={'': ['templates/*']},
-      scripts = [
-                ],
+      scripts = [],
       data_files=[
+        ('/usr/bin', ['bin/proxylisting'])
       ],
       long_description = """
 Directory listing for the root of a reverse proxied Node
