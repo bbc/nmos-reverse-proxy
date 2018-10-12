@@ -38,34 +38,6 @@ pipeline {
                 sh 'git clean -df'
             }
         }
-        stage ("Tests") {
-            parallel {
-                stage ("Unit Tests") {
-                    stages {
-                        stage ("Python 2.7 Unit Tests") {
-                            steps {
-                                script {
-                                    env.py27_result = "FAILURE"
-                                }
-                                bbcGithubNotify(context: "tests/py27", status: "PENDING")
-                                // Use a workdirectory in /tmp to avoid shebang length limitation
-                                withBBCRDPythonArtifactory {
-                                    sh 'tox -e py27 --recreate --workdir /tmp/$(basename ${WORKSPACE})/tox-py27'
-                                }
-                                script {
-                                    env.py27_result = "SUCCESS" // This will only run if the sh above succeeded
-                                }
-                            }
-                            post {
-                                always {
-                                    bbcGithubNotify(context: "tests/py27", status: env.py27_result)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
         stage ("Debian Source Build") {
             steps {
                 script {
