@@ -45,7 +45,7 @@ package_names = packages.keys()
 
 packages_required = []
 
-setup(name = "ips-reverseproxy-common",
+setup(name = "reverseproxy-common",
       version = "0.1.0",
       description = "Reverse Proxy Directory listing service and Apache 2 configuration for NMOS services",
       url='https://github.com/bbc/nmos-reverse-proxy',
