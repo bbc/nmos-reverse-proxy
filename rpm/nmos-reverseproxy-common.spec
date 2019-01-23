@@ -7,7 +7,7 @@ Summary: Common reverse proxy config for IP Studio web services
 Source0: ips-reverseproxy-common-%{version}.tar.gz
 Source1: nmos-reverseproxy-common.conf
 Source2: nmos-reverse-proxy.service
-Source3: nmos-reverse-proxy.conf
+Source3: nmos-reverseproxy-common.conf
 Source4: proxylisting
 
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
@@ -51,7 +51,7 @@ mkdir -p %{buildroot}/%{_unitdir}
 cp %{SOURCE2} %{buildroot}/%{_unitdir}/nmos-reverse-proxy.service
 
 mkdir -p %{buildroot}/%{_sysconfdir}/init
-cp %{SOURCE3} %{buildroot}/%{_sysconfdir}/init/nmos-reverse-proxy.conf
+cp %{SOURCE3} %{buildroot}/%{_sysconfdir}/init/nmos-reverseproxy-common.conf
 
 cp %{SOURCE4} %{buildroot}%{_bindir}/proxylisting
 
@@ -75,7 +75,7 @@ rm -rf %{buildroot}
 %config %{_sysconfdir}/httpd/conf.d/nmos-reverseproxy-common.conf
 %config %{_sysconfdir}/httpd/conf.d/ips-apis
 %config %{_sysconfdir}/httpd/conf.d/nmos-apis
-%config %{_sysconfdir}/init/nmos-reverse-proxy.conf
+%config %{_sysconfdir}/init/nmos-reverseproxy-common.conf
 
 %{_unitdir}/nmos-reverse-proxy.service
 
