@@ -11,7 +11,7 @@ from setuptools import setup
 import os
 
 # Basic metadata
-name = "nmos-reverseproxy"
+name = "nmosreverseproxy"
 version = "0.4.0"
 description = "Reverse Proxy Directory listing service and Apache 2 configuration for NMOS services"
 url = 'https://github.com/bbc/nmos-reverse-proxy'
