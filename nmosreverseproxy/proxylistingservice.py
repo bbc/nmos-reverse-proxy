@@ -13,12 +13,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 
-import signal, time
+from __future__ import absolute_import
+
+import signal
+import time
 from nmoscommon.httpserver import HttpServer
-from proxylisting import ProxyListingAPI
+from .proxylisting import ProxyListingAPI
 
 HOST = "127.0.0.1"
 PORT = 12344
+
 
 class ProxyListingService:
     def __init__(self):
@@ -31,13 +35,13 @@ class ProxyListingService:
         self.http_server = HttpServer(ProxyListingAPI, PORT, HOST)
         self.http_server.start()
         while not self.http_server.started.is_set():
-            print "Waiting for httpserver to start..."
+            print("Waiting for httpserver to start...")
             self.http_server.started.wait()
 
         if self.http_server.failed is not None:
             raise self.http_server.failed
 
-        print "Running on port: {}".format(self.http_server.port)
+        print("Running on port: {}".format(self.http_server.port))
 
     def run(self):
         self.running = True
@@ -51,10 +55,10 @@ class ProxyListingService:
             self.running = False
         else:
             self.http_server.stop()
-            print "Stopped main()"
+            print("Stopped main()")
 
     def sig_handler(self, sig, frame):
-        print "Pressed ctrl+c"
+        print("Pressed ctrl+c")
         self.stop()
 
 
@@ -66,5 +70,5 @@ if __name__ == "__main__":
     try:
         while True:
             time.sleep(1)
-    except:
+    except KeyboardInterrupt:
         service.stop()

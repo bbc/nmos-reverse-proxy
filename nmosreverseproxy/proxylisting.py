@@ -14,12 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from nmoscommon.webapi import *
+from nmoscommon.webapi import WebAPI, resource_route
 from os import listdir, getenv
 from os.path import isfile, join
 
-ALIAS_SITES=getenv("PROXYLISTING_ALIAS_SITES", "/etc/apache2/sites-enabled/")
-PROXY_SITES=getenv("PROXYLISTING_PROXY_SITES", "/etc/apache2/sites-available/")
+ALIAS_SITES = getenv("PROXYLISTING_ALIAS_SITES", "/etc/apache2/sites-enabled/")
+PROXY_SITES = getenv("PROXYLISTING_PROXY_SITES", "/etc/apache2/sites-available/")
+
 
 class ProxyListingAPI(WebAPI):
     def __init__(self):
@@ -37,7 +38,7 @@ class ProxyListingAPI(WebAPI):
                             line_bits = line.split("Alias ")[1].split(" ")
                             line_bits = line_bits[0].split("/")
                             alias_list.append(line_bits[1].strip() + "/")
-        alias_list = list(set(alias_list)) # De-duplicate
+        alias_list = list(set(alias_list))  # De-duplicate
         alias_list.sort()
         return alias_list
 
@@ -52,7 +53,8 @@ class ProxyListingAPI(WebAPI):
     def get_apis(self, delimiter):
         api_list = []
         for conffile in listdir(PROXY_SITES):
-            if (isfile(join(PROXY_SITES, conffile)) and conffile.endswith(".conf")) and (conffile.startswith("nmos-api-") or conffile.startswith("ips-api-")):
+            if ((isfile(join(PROXY_SITES, conffile)) and conffile.endswith(".conf")) and
+                    (conffile.startswith("nmos-api-") or conffile.startswith("ips-api-"))):
                 with open(join(PROXY_SITES, conffile)) as proxyfile:
                     # If site is available and has a Location, list the second level of it
                     for line in proxyfile:
@@ -61,6 +63,6 @@ class ProxyListingAPI(WebAPI):
                             line_bits = line_bits[0].split("/")
                             if line_bits[1] == delimiter:
                                 api_list.append(line_bits[2].strip() + "/")
-        api_list = list(set(api_list)) # De-duplicate
+        api_list = list(set(api_list))  # De-duplicate
         api_list.sort()
         return api_list

@@ -12,7 +12,7 @@ import os
 
 # Basic metadata
 name = "nmosreverseproxy"
-version = "0.5.0"
+version = "0.5.1"
 description = "Reverse Proxy Directory listing service and Apache 2 configuration for NMOS services"
 url = 'https://github.com/bbc/nmos-reverse-proxy'
 author = 'Simon Rankine'
