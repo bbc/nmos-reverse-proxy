@@ -78,6 +78,7 @@ deb: source deb_dist $(DEBIANOVERRIDES)
 	DEB_BUILD_OPTIONS=nocheck
 	cd $(DEBIANDIR)/..;debuild -uc -us
 	cp $(topbuilddir)/deb_dist/ips-reverseproxy-common_$(DEBVERSION)-1*.deb $(topbuilddir)/dist
+	cp $(topbuilddir)/deb_dist/python*$(DEBNAME)_$(DEBVERSION)-1*.deb $(topbuilddir)/dist
 
 # START OF RPM SPEC RULES
 # If you have your own rpm spec file to use you'll need to disable these rules
