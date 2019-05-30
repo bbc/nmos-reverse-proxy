@@ -34,7 +34,7 @@ class ProxyListingAPI(WebAPI):
                 with open(join(ALIAS_SITES, conffile)) as aliasfile:
                     # If site is enabled and has an Alias, list the first level of it
                     for line in aliasfile:
-                        if "Alias " in line:
+                        if line.strip().startswith("Alias "):
                             line_bits = line.split("Alias ")[1].split(" ")
                             line_bits = line_bits[0].split("/")
                             alias_list.append(line_bits[1].strip() + "/")
