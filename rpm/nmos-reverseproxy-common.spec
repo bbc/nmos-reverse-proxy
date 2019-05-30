@@ -1,5 +1,5 @@
 Name: ips-reverseproxy-common
-Version: 0.5.2
+Version: 0.5.3
 Release: 2%{?dist}
 License: Apache 2
 Summary: Common reverse proxy config for IP Studio web services
