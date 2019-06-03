@@ -1,5 +1,8 @@
 # NMOS Reverse Proxy Listing API Implementation Changelog
 
+## 0.5.4
+- Move NMOS packages from recommends to depends
+
 ## 0.5.3
 - Fix error in handling of Alias directive in conf files
 
