@@ -1,5 +1,4 @@
-#!/usr/bin/python
-
+#!/usr/bin/env python3
 from nmosreverseproxy.proxylistingservice import ProxyListingService
 
 if __name__ == "__main__":
