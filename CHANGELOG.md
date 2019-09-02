@@ -1,5 +1,8 @@
 # NMOS Reverse Proxy Listing API Implementation Changelog
 
+## 0.6.0
+- Allow Python 2 and 3 versions of package to replace one another
+
 ## 0.5.4
 - Move NMOS packages from recommends to depends
 

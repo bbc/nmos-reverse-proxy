@@ -12,7 +12,7 @@ import os
 
 # Basic metadata
 name = "nmosreverseproxy"
-version = "0.5.4"
+version = "0.6.0"
 description = "Reverse Proxy Directory listing service and Apache 2 configuration for NMOS services"
 url = 'https://github.com/bbc/nmos-reverse-proxy'
 author = 'Simon Rankine'
@@ -23,9 +23,8 @@ long_description = description
 
 def is_package(path):
     return (
-        os.path.isdir(path) and
-        os.path.isfile(os.path.join(path, '__init__.py'))
-        )
+        os.path.isdir(path) and os.path.isfile(os.path.join(path, '__init__.py'))
+    )
 
 
 def find_packages(path, base=""):
@@ -58,18 +57,20 @@ packages_required = [
 # eg. https://github.com/bbc/rd-apmm-python-lib-nmos-common#egg=nmoscommon=0.1.0
 deps_required = []
 
-setup(name=name,
-      version=version,
-      description=description,
-      url=url,
-      author=author,
-      author_email=author_email,
-      license=license,
-      packages=package_names,
-      package_dir=packages,
-      install_requires=packages_required,
-      scripts=[],
-      data_files=[
-            ('/usr/bin', ['bin/proxylisting'])
-      ],
-      long_description=long_description)
+setup(
+    name=name,
+    version=version,
+    description=description,
+    url=url,
+    author=author,
+    author_email=author_email,
+    license=license,
+    packages=package_names,
+    package_dir=packages,
+    install_requires=packages_required,
+    scripts=[],
+    data_files=[
+        ('/usr/bin', ['bin/proxylisting'])
+    ],
+    long_description=long_description
+)
